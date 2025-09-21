@@ -1,8 +1,7 @@
  import React, { useState } from 'react';
+import React, { useState } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout';
 import { useNavigate } from 'react-router-dom';
-import { API_PATHS } from '../../utils/apiPaths';
-import axiosInstance from '../../utils/axiosinstance';
 import { toast } from 'react-hot-toast';
 
 const Login = () => {
@@ -11,29 +10,23 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
 
-    try {
-      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
-        email,
-        password
-      });
+    // Simple frontend validation
+    if (!email || !password) {
+      setError('Please enter both email and password.');
+      return;
+    }
 
-      // Save token and user data
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify({
-        id: response.data.id,
-        fullName: response.data.fullName,
-        email: response.data.email
-      }));
-
+    // Mock login logic
+    if (email === 'test@example.com' && password === 'password') {
+      localStorage.setItem('user', JSON.stringify({ email, fullName: 'Test User' }));
       toast.success('Login successful!');
       navigate('/dashboard');
-    } catch (error) {
-      console.error('Login error:', error);
-      setError(error.response?.data?.message || 'Login failed. Please try again.');
+    } else {
+      setError('Invalid email or password.');
     }
   };
 
