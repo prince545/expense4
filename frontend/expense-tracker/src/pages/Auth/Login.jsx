@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 const Login = () => {
@@ -76,9 +76,14 @@ const Login = () => {
             Continue to Dashboard
           </button>
         </form>
-        <div style={{ marginTop: '1rem' }}>
-          <span>Don't have an account? </span>
-          <a href="/signup">Sign Up</a>
+
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-600">
+            Don't have an account?{' '}
+            <Link to="/signup" className="font-medium text-purple-600 hover:text-purple-500">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </AuthLayout>
