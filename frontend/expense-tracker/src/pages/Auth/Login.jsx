@@ -76,6 +76,10 @@ const Login = () => {
             Continue to Dashboard
           </button>
         </form>
+        <div style={{ marginTop: '1rem' }}>
+          <span>Don't have an account? </span>
+          <a href="/signup">Sign Up</a>
+        </div>
       </div>
     </AuthLayout>
   );
