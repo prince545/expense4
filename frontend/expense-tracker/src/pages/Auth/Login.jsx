@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { useUserAuth } from '../../context/userContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { updateUser } = useUserAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,12 +19,14 @@ const Login = () => {
       return;
     }
 
-    // Accept any email/password for demo purposes
-    const userData = { email, fullName: 'Demo User' };
-    localStorage.setItem('user', JSON.stringify(userData));
-    updateUser(userData);
-    toast.success('Login successful!');
-    navigate('/dashboard');
+    // Mock login logic
+    if (email === 'test@example.com' && password === 'password') {
+      localStorage.setItem('user', JSON.stringify({ email, fullName: 'Test User' }));
+      toast.success('Login successful!');
+      navigate('/dashboard');
+    } else {
+      setError('Invalid email or password.');
+    }
   };
 
   return (
