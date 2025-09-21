@@ -1,7 +1,5 @@
- import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosinstance";
-import { API_PATHS } from "../utils/apiPaths";
 
 export const useUserAuth = () => {
   const [user, setUser] = useState(null);
@@ -10,21 +8,25 @@ export const useUserAuth = () => {
   useEffect(() => {
     let isMounted = true;
 
-    const fetchUserInfo = async () => {
+    const checkUserAuth = () => {
       try {
-        const response = await axiosInstance.get(API_PATHS.AUTH.GET);
-        if (isMounted && response.data) {
-          setUser(response.data);
+        const userData = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        if (isMounted && userData && token) {
+          setUser(JSON.parse(userData));
+        } else if (isMounted) {
+          navigate("/login");
         }
       } catch (error) {
-        console.error("Failed to fetch user info:", error);
+        console.error("Failed to check user auth:", error);
         if (isMounted) {
           navigate("/login");
         }
       }
     };
 
-    fetchUserInfo();
+    checkUserAuth();
 
     return () => {
       isMounted = false;
