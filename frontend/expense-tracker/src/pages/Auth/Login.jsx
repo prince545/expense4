@@ -19,14 +19,10 @@ const Login = () => {
       return;
     }
 
-    // Mock login logic
-    if (email === 'test@example.com' && password === 'password') {
-      localStorage.setItem('user', JSON.stringify({ email, fullName: 'Test User' }));
-      toast.success('Login successful!');
-      navigate('/dashboard');
-    } else {
-      setError('Invalid email or password.');
-    }
+    // Accept any email/password for demo purposes
+    localStorage.setItem('user', JSON.stringify({ email, fullName: 'Demo User' }));
+    toast.success('Login successful!');
+    navigate('/dashboard');
   };
 
   return (
