@@ -18,7 +18,12 @@ connectDB();
 
 // ✅ CORS Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://expense4-zi5r.vercel.app', 'http://localhost:3000'], // add all needed origins
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://expense4-zi5r.vercel.app', // ✅ Add your deployed frontend domain
+    'http://localhost:3000'
+  ],
   credentials: true,
 }));
 
